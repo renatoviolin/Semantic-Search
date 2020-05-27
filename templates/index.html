@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/app.css" rel="stylesheet">
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/app.js"></script>
+</head>
+
+
+<body>
+    <div class="overlay">
+        <div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>
+    </div>
+    <h2> Deep Learning in Action </h2>
+    <div class="row">
+        <div class="col-sm-1"></div>
+
+        <div class="col-sm-10">
+            <center>
+                <h3>Semantic Search with Transformers</h3>
+            </center>
+
+            <!-- input corpus -->
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="input_corpus">Insert a corpus text (new-line) separeted</label>
+                    <textarea class="form-control" id="input_corpus"
+                        rows="15">Apple Inc. is an American multinational technology company headquartered in Cupertino, California, that designs, develops, and sells consumer electronics, computer software, and online services. It is considered one of the Big Four technology companies, alongside Amazon, Google, and Facebook. 
+Apple was founded by Steve Jobs, Steve Wozniak, and Ronald Wayne in April 1976 to develop and sell Wozniak's Apple I personal computer, though Wayne sold his share back within 12 days. It was incorporated as Apple Computer, Inc., in January 1977, and sales of its computers, including the Apple II, grew quickly. Within a few years, Jobs and Wozniak had hired a staff of computer designers and had a production line. Apple went public in 1980 to instant financial success.
+As the market for personal computers expanded and evolved through the 1990s, Apple lost market share to the lower-priced duopoly of Microsoft Windows on Intel PC clones. 
+The board recruited CEO Gil Amelio to what would be a 500-day charge for him to rehabilitate the financially troubled company—reshaping it with layoffs, executive restructuring, and product focus.
+Apple is well known for its size and revenues. Its worldwide annual revenue totaled $265 billion for the 2018 fiscal year. Apple is the world's largest technology company by revenue and one of the world's most valuable companies.
+Computer science is the study of processes that interact with data and that can be represented as data in the form of programs. It enables the use of algorithms to manipulate, store, and communicate digital information. A computer scientist studies the theory of computation and the design of software systems.
+During the 1940s, as new and more powerful computing machines such as the Atanasoff–Berry computer and ENIAC were developed, the term computer came to refer to the machines rather than their human predecessors
+International Business Machines Corporation (IBM) is an American multinational technology company headquartered in Armonk, New York, with operations in over 170 countries. 
+The company began in 1911, founded in Endicott, New York, as the Computing-Tabulating-Recording Company (CTR) and was renamed "International Business Machines" in 1924. IBM is incorporated in New York.
+An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs.
+Time-sharing operating systems schedule tasks for efficient use of the system and may also include accounting software for cost allocation of processor time, mass storage, printing, and other resources.
+A single-tasking system can only run one program at a time, while a multi-tasking operating system allows more than one program to be running in concurrency. This is achieved by time-sharing, where the available processor time is divided between multiple processes.
+Multi-tasking may be characterized in preemptive and co-operative types. In preemptive multitasking, the operating system slices the CPU time and dedicates a slot to each of the programs.
+Single-user operating systems have no facilities to distinguish users, but may allow multiple programs to run in tandem.
+Embedded operating systems are designed to be used in embedded computer systems. They are designed to operate on small machines with less autonomy (e.g. PDAs). They are very compact and extremely efficient by design, and are able to operate with a limited amount of resources. Windows CE and Minix 3 are some examples of embedded operating systems.
+Java is a general-purpose programming language that is class-based, object-oriented, and designed to have as few implementation dependencies as possible.
+Java was originally developed by James Gosling at Sun Microsystems (which has since been acquired by Oracle) and released in 1995 as a core component of Sun Microsystems' Java platform. 
+Sun Microsystems released the first public implementation as Java 1.0 in 1996.[27] It promised Write Once, Run Anywhere (WORA) functionality, providing no-cost run-times on popular platforms.
+Python was conceived in the late 1980s as a successor to the ABC language. Python 2.0, released in 2000, introduced features like list comprehensions and a garbage collection system capable of collecting reference cycles.
+Python interpreters are available for many operating systems. A global community of programmers develops and maintains CPython, an open source[34] reference implementation. A non-profit organization, the Python Software Foundation, manages and directs resources for Python and CPython development.
+Rather than having all of its functionality built into its core, Python was designed to be highly extensible. This compact modularity has made it particularly popular as a means of adding programmable interfaces to existing applications.
+Python uses duck typing and has typed objects but untyped variable names. Type constraints are not checked at compile time; rather, operations on an object may fail, signifying that the given object is not of a suitable type. Despite being dynamically typed, Python is strongly typed, forbidding operations that are not well-defined (for example, adding a number to a string) rather than silently attempting to make sense of them. </textarea>
+                </div>
+            </div>
+
+            <!-- INPUT SEARCH -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="input_query">Insert a query</label>
+                    <input type="text" class="form-control" id="input_query" />
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label for="input_query">Split sentences by</label>
+                    <select class="form-control" id="split_token">
+                        <option value=0>new line</option>
+                        <option value=1>.</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label for="max_sentences" id="label_max_sentences">Top k sentences: 5</label>
+                    <input type="range" class="custom-range" min="1" max="10" value="5" step="1" id="max_sentences">
+                </div>
+
+                <div class="form-group col-md-2">
+                    <br>
+                    <button type="button" class="btn btn-primary btn-lg btn-block" id="btn-process">Search</button>
+                </div>
+
+            </div>
+            <!-- END INPUT SEARCH -->
+
+            <div id="output" style="display: none;">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Universal Sentence Encoder</label>
+                        <div class="output-container" id="output-use"></div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>BERT mean pooling</label>
+                        <div class="output-container" id="output-bert"></div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Sentence Transformers BERT</label>
+                        <div class="output-container" id="output-sentenceBERT"></div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Sentence Transformers RoBERTA</label>
+                        <div class="output-container" id="output-roberta"></div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>BM25</label>
+                        <div class="output-container" id="output-bm25"></div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Infersent Glove</label>
+                        <div class="output-container" id="output-infersent"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+</body>
+
+</html>
