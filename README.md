@@ -10,19 +10,22 @@ The demo text has 4 sentences about each topic: Apple, Operating Systems, Java a
 
 It is possible to see the semantic search works well filtering out only documents about the specific query, even tought the query doesn't have the exaclty words in documents.
 
-The Raw BERT performs poorly (as expected )
+The Raw BERT performs poorly (as expected)
 
-
+#### Searching for Apple
 ![Query about apple](search_apple.gif)
 
+#### Searching for OS
 ![Query about OS](search_os.gif)
 
+#### Searching for Java
 ![Query about Java](search_java.gif)
 
+#### Searching for Python
 ![Query about Python](search_python.gif)
 
 ### Running 
-It is necessary to download the [Infersent model 1](https://github.com/facebookresearch/InferSent) and [glove.840B.300d.txt] (http://nlp.stanford.edu/data/glove.840B.300d.zip).
+It is necessary to download the [Infersent model 1](https://github.com/facebookresearch/InferSent) and [glove.840B.300d.txt](http://nlp.stanford.edu/data/glove.840B.300d.zip).
 
 Download and put the files in the infersent_files in each respective folders.
 
